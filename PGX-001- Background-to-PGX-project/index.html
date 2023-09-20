@@ -19,7 +19,7 @@
     
     
       
-        <title>Background to the PGx Project - Apperta CKM - NHS Pharmacogenetics (PGx) project</title>
+        <title>Pharmacogenetics Data Modelling - Apperta CKM - NHS Pharmacogenetics (PGx) project</title>
       
     
     
@@ -67,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#introduction-to-the-pgx-archetype-project" class="md-skip">
+        <a href="#pharmacogenetics-data-modelling-a-step-towards-personalised-prescribing" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Background to the PGx Project
+              Pharmacogenetics Data Modelling
             
           </span>
         </div>
@@ -211,7 +211,7 @@
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Background to the PGx Project
+        Pharmacogenetics Data Modelling
       </a>
       
     </li>
@@ -266,7 +266,8 @@
                   
 
 
-<h1 id="introduction-to-the-pgx-archetype-project">Introduction to the PGx archetype project</h1>
+<h1 id="pharmacogenetics-data-modelling-a-step-towards-personalised-prescribing">Pharmacogenetics Data Modelling: A Step Towards Personalised Prescribing</h1>
+<h2 id="introduction">Introduction</h2>
 <p>Pharmacogenomics (PGx) is the study of how genetic variation impacts the way people respond to medicines. PGx can help healthcare professionals make more informed and safer prescribing decisions, by providing live guidance on the optimal medicines and dose for each patient.</p>
 <p>Unlike many other types of genomic data, PGx results will be used across the health service by professionals who may not have any experience handling genetic information. PGx data can be generated from relatively simple lab tests that look for common genetic changes in genes which are involved in the metabolism of medicines.</p>
 <p>The presence of genetic changes in genes related to medicines metabolism can be used to classify people into different categories known as "metabolisor" status. For example, some people may have genetic changes which reduce the activity of an enzyme, making them a poor metaboliser, meaning they may break down medicines more slowly and may experience increased side effects or toxicity. Others may be ultra-rapid metabolisers, which means they might break down medicines very quickly, necessitating  higher doses or different medicines to achieve the desired effect.</p>
@@ -276,17 +277,17 @@
 <p><img alt="" src="https://hackmd.io/_uploads/ByWkGnco3.png" /></p>
 <p>Our data model is informed by some existing resources:</p>
 <ul>
-<li><a href="https://cpicpgx.org/genes-drugs/">CPIC Gene-drug interaction tables</a></li>
+<li><a href="https://vrs.ga4gh.org/en/stable/">G4AGH Variant model</a></li>
+<li><a href="https://cpicpgx.org/genes-drugs/">CPIC Gene-drug interactino tables</a></li>
 <li><a href="http://build.fhir.org/ig/HL7/genomics-reporting/background.htmlhttp://build.fhir.org/ig/HL7/genomics-reporting/background.html">FHIR Geonomics Reporting Implementation Guide</a></li>
 <li><a href="https://ckm.openehr.org/ckm/projects/1013.30.50">openEHR Genomics Project</a></li>
-<li><a href="https://vrs.ga4gh.org/en/stable/">G4AGH Variant model</a></li>
 </ul>
 <p>However, we have also identified some specific requirements for PGx that are not fully addressed by these resources.</p>
 <p>The aim is to provide prescribing advice (clinical decision support) in real-time to GP and other systems, based on established PGx genes and emerging PGx reasearch.</p>
 <p><img alt="" src="https://hackmd.io/_uploads/H1r7Mnci3.png" /></p>
 <h3 id="key-pgx-concepts">Key PGx concepts</h3>
 <h4 id="gene">Gene</h4>
-<p>A DNA location responsible for protein manufacture, in this case a set of enzymes responsible for metabolising substances including some therapetic agents</p>
+<p>A DNA location responsible for protein manufacture, in this case a set of enzymes responsible for metabolising substances including therapetic agents</p>
 <div class="language-text highlight"><pre><span></span><code> CYP2C19
 </code></pre></div>
 <h4 id="genotype">Genotype</h4>
@@ -300,21 +301,28 @@
 <div class="language-text highlight"><pre><span></span><code>     *3,*5
 </code></pre></div>
 <h3 id="diplotype">£ Diplotype</h3>
-<p>A diplotype is a genotype term which is a combination of a gene name and haplotype, as an alternative to the nomenlature aboive</p>
+<p>A diplotype is a genotype term which is a combination of a gene name and haplotype, as an alternative to the nomenlature above</p>
 <div class="language-text highlight"><pre><span></span><code>     CYP2C19 *3,*5
 </code></pre></div>
 <h4 id="pgx-phenotype-metaboliser-status">PGx Phenotype (Metaboliser status)</h4>
 <p>In this context we are using 'phenotype' to mean the clinical/real-world impact of the genotype on some aspect of the patient's physiology, usually some sort of change in the associated enzyme's ability to metabolise a group of drugs.</p>
-<p>This is gnerally expressed as some sort of change to metaboliser status /function.</p>
-<p>CPIC maintains tables that associate a set of PGx phenotypes/ mataboliser status codes (LOINC and SNOMED CT) based on known and emerging variants).</p>
+<p>This is gnerally expressed as some sort of change to metaboliser status/function.</p>
+<p>CPIC maintains tables that associate a set of PGx phenotypes/mataboliser status codes (LOINC and SNOMED CT) based on known and emerging variants).</p>
 <div class="language-text highlight"><pre><span></span><code> CYP2C19 Poor Metaboliser
 </code></pre></div>
 <h4 id="therapeutic-implications">Therapeutic implications</h4>
-<p>On the basis of known PGx phenotypes, specifc therapeutic implications can be derived for specifc drugs or drug classes known to be impacted by a specific PGx phenotype/ metaboliser status. 
-In some cases that will be to avoid a particular drug/ adjust dosage because of reduced metabolic activity and risk of toxicy. 
+<p>On the basis of known PGx phenotypes, specifc therapeutic implications can be derived for specifc drugs or drug classes known to be impacted by a specific PGx phenotype/metaboliser status. 
+In some cases that will be to avoid a particular drug/adjust dosage because of reduced metabolic activity and risk of toxicy. 
 In other cases, a higher than normal metabolic activity may redice the effectiveness of a particular drug.
-The drugs and drug classes that are implicated by a particular PGx phenotype will change over time as new significan variants are detected, or new drugs and drug calasses are developed.</p>
-<div class="language-text highlight"><pre><span></span><code>Clopidigrel (Prescribe alternative Antiplatelet)
+The drugs and drug classes that are implicated by a particular PGx phenotype will change over time as new significant variants are detected, or new drugs and drug calasses are developed.</p>
+<div class="language-text highlight"><pre><span></span><code>Significantly reduced clopidogrel active metabolite formation;
+increased on-treatment platelet reactivity; increased risk for 
+adverse cardiac and cerebrovascular events
+</code></pre></div>
+<h4 id="therapeutic-recommendations">Therapeutic recommendations</h4>
+<p>Following from the therapeutic implications, international consensus exists around therapeutic recommendations, which may suggest an alternate medicine or specific dose change. The combination of therapeutic implication and recommendation is also described as 'guidance'. </p>
+<div class="language-text highlight"><pre><span></span><code>Avoid standard dose (75 mg/day) clopidogrel if possible. 
+Use prasugrel or ticagrelor at standard dose if no contraindication.
 </code></pre></div>
 <p>This leads to a chain of infomation supporting end-user Clinical Decision support...</p>
 <p><img alt="" src="https://hackmd.io/_uploads/r1m6fnqjh.png" /></p>
@@ -375,7 +383,6 @@ genes, from which therapeutic implications can be derived, normally using guidan
 <p>We may need to make some minor adjustments to these profiles to accommodate our specific requirements, but we believe that they are largely suitable for PGx reporting.</p>
 <h2 id="summary">Summary</h2>
 <p>We hope that our work on PGx data modelling will contribute to advancing personalised prescribing and improving patient outcomes. We welcome feedback and collaboration from anyone who is interested in this topic.</p>
-<hr />
 
 
 
@@ -413,7 +420,7 @@ genes, from which therapeutic implications can be derived, normally using guidan
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs - navigation.tabs.sticky"], "search": "../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
       <script src="../assets/javascripts/bundle.407015b8.min.js"></script>
